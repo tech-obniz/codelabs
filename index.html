@@ -1,0 +1,1071 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Obniz Starter Kit</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="obniz-starter-kit"
+                  title="Obniz Starter Kit"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="キットについて" duration="5">
+        <h2 is-upgraded><strong>概要</strong></h2>
+<p>obnizスターターキットは、 obnizを使う際によく使用する部品類を一つにまとめ、アイデアをすぐに実現できるようにするキットです。 このハンズオン記事を通して1つ1つのパーツの使い方をJavaScriptでハードウエアを動かしながら学んでいきましょう！ このハンズオン記事が終了する頃には様々なアイデアを実現できるようになっているはずです。では早速、上から順に始めていきましょう！</p>
+<h2 is-upgraded><strong>Starter Kit 同梱物</strong></h2>
+<ul>
+<li>obniz Board</li>
+<li>USB micro B cable</li>
+<li>センサー類</li>
+<li>LED信号</li>
+<li>サーボモーター</li>
+<li>ボタン</li>
+<li>距離センサー</li>
+<li>温度センサー</li>
+<li>人感センサー</li>
+<li>マトリックスLED</li>
+<li>ブザー</li>
+</ul>
+<h3 is-upgraded><strong>1. Wi-Fi設定</strong></h3>
+<p>まず、obniz BoardをWi-Fiにつなぎます。Wi-Fi接続手順の詳細は、obnizDocsにある<a href="https://obniz.com/ja/doc/reference/board-1y/quick-start/" target="_blank">obniz Boardの起動とWi-Fi設定</a> を参考にしてみてください。</p>
+<h3 is-upgraded><strong>2. パーツを選ぶ</strong></h3>
+<p>接続するパーツを選び接続します。今回はLED信号モジュールの使い方から見ていきます。</p>
+<h3 is-upgraded><strong>3. </strong>プログラムを実行 </h3>
+<p>開発者コンソールの開発→HTML プログラム(<a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a>)にプログラムを書き実行します。今回は、1つ1つのプログラムをコピー＆ペーストで使えるようにコードを記載していますので、貼り付けて実行してみてください。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="LED信号" duration="10">
+        <p>製作物</p>
+<ul>
+<li>LED信号のブラウザから操作するアプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>LED信号</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p><a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a> からオンラインのHTMLエディタにいき、obniz idを入力します。下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#34;utf-8&#34;&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+      &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34;&gt;
+    &lt;script src=&#34;https://obniz.com/js/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+      &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id=&#34;obniz-debug&#34;&gt;&lt;/div&gt;
+
+    &lt;div class=&#34;wrap px-5 py-4&#34;&gt;
+
+      &lt;h3 class=&#34;title mb-4&#34;&gt;Connect From Your Browser&lt;/h3&gt;
+
+      &lt;h5&gt;LED&lt;/h5&gt;
+
+      &lt;div class=&#34;btnBox d-flex mb-4&#34;&gt;
+
+        &lt;div class=&#34;green_btn d-flex flex-column&#34;&gt;
+          &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;green_on&#34;&gt;ON&lt;/button&gt;
+          &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;green_off&#34;&gt;OFF&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&#34;yellow_btn d-flex flex-column&#34;&gt;
+          &lt;button class=&#34;btn btn-warning m-1&#34; id=&#34;yellow_on&#34;&gt;ON&lt;/button&gt;
+          &lt;button class=&#34;btn btn-warning m-1&#34; id=&#34;yellow_off&#34;&gt;OFF&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&#34;red_btn d-flex flex-column&#34;&gt;
+          &lt;button class=&#34;btn btn-danger m-1&#34; id=&#34;red_on&#34;&gt;ON&lt;/button&gt;
+          &lt;button class=&#34;btn btn-danger m-1&#34; id=&#34;red_off&#34;&gt;OFF&lt;/button&gt;
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+
+      obniz.onconnect = async function () {
+
+        var light = obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {gnd:0, green:1, yellow:2, red:3});
+
+        $(&#39;#green_on&#39;).click(function () {
+          light.green.on();
+        });
+
+        $(&#39;#green_off&#39;).click(function () {
+          light.green.off();
+        });
+
+        $(&#39;#yellow_on&#39;).click(function () {
+          light.yellow.on();
+        });
+
+        $(&#39;#yellow_off&#39;).click(function () {
+          light.yellow.off();
+        });
+
+        $(&#39;#red_on&#39;).click(function () {
+          light.red.on();
+        });
+
+        $(&#39;#red_off&#39;).click(function () {
+          light.red.off();
+        });
+
+        obniz.switch.onchange = function(state) {
+          $(&#39;#print&#39;).text(state);
+          obniz.display.clear();
+          obniz.display.print(state);
+        }
+
+      }
+
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>LED信号のGND, G(green), Y(yellow), R(red)のピンがobniz Boardの0, 1, 2, 3と繋がるように接続します。</p>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行し、各色のボタンのONボタンを押すと、ボタンと同じ色のライトがつき、OFFを押すと消えることが確認できます。</p>
+<h3 is-upgraded><img style="width: 624.00px" src="img/ff3fa99351bbb696.png"></h3>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>基礎知識</strong></h3>
+<p>&lt;HTMLに関して&gt;</p>
+<aside class="special"><p><strong>HTML</strong>：HTML（エイチティーエムエル、HyperText Markup Language）は、ウェブページを作成するために開発された言語です。&lt;html&gt;や&lt;p&gt;、&lt;h1&gt;など、&lt;&gt;でかこまれた要素をタグと呼び、このHTMLタグからWEPページが構成されます。</p>
+</aside>
+<p>&lt;Bootstrapに関して&gt;</p>
+<aside class="special"><p><strong>Booststrap</strong>：BootstrapはHTML／CSS／JavaScriptから構成される最も有名なWEBフレームワークです。これを使うことで、自分でゼロからデザインを作ったり、コーディングをしなくても実装が可能になります。</p>
+</aside>
+<p>&lt;javascriptに関して&gt;</p>
+<aside class="special"><p><strong>javascript</strong>：動的なWebページを作成する事のできるプログラミング言語です。Webサイトを表示するブラウザ上で動くので、クライアントサイドのスクリプトと呼ばれています。</p>
+</aside>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>6行目: </p>
+<pre><code>&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;</code></pre>
+<p>viewportとは、webページの表示領域のことで、上記は、サイトのサイズをデバイスの横幅に、横スクロールが表示されない程度にフィットさせて表示するという設定。</p>
+<p>13行目</p>
+<pre><code>&lt;div id=&#34;obniz-debug&#34;&gt;&lt;/div&gt;</code></pre>
+<p>これを記述することで、obnizのクラウド側の接続のステータス状態を自動出力してくれます。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/3a597f51c3e500e8.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/28b3182d0edb22a5.png"></p>
+<p>49~79行目</p>
+<p>async function：javascriptの構文の1つで、非同期関数の定義に使用する。</p>
+<pre><code>obniz.onconnect = async function () {
+...
+}</code></pre>
+<aside class="special"><p>ObnizクラスはobnizIDを元に作成される1つのデバイスを表すクラスですが、インスタンス化と同時に自動的に接続が開始され、接続が成功するとonconnectに指定した関数が、切断でoncloseに指定した関数が呼ばれます。切断後も自動的に再接続を試みます。</p>
+</aside>
+<aside class="warning"><p><strong>同期処理</strong>: 複数のタスクを実行する際に一つずつ順番にタスクが実行される方式で、順番が決まっているので処理全体を把握しやすいというメリットがある反面、タスクの処理完了までに時間がかかる場面ではユーザーにストレスがかかる場合があります。</p>
+<p><strong>非同期処理</strong>: あるタスクを実行している最中に、その処理を止めることなく別のタスクを実行できる方式を指します。</p>
+<p>非同期処理をうまく活用すると、全体の処理速度を速められるメリットがある反面、処理の順番が不定のため、全体像把握が少し難しくなります。</p>
+<p>このとき注意しておきたいのは、非同期処理と並行処理の違いです。<strong>並行処理</strong>とは複数の処理を同時進行で行うことです。一方、非同期処理は処理を止めることなく実行できるというだけです。そのため、非同期処理と並行処理は共存が可能で、並行処理を実現するために非同期処理で実装するということもありえます。</p>
+<p>※基本的にobnizはonconnectでobnizとクラウドとの接続が発火するので非同期関数で記述します。</p>
+</aside>
+<p>73~77行目</p>
+<pre><code>var light = obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {gnd:0, green:1, yellow:2, red:3});</code></pre>
+<p>第一引数は、Obniz SDKの中のLED信号モジュールのクラスを呼び出しており、第二引数はObnizのIOへ接続の設定を行っています。</p>
+<aside class="special"><p><strong>Keyestudio_TrafficLight</strong>: Keyestudio社製の、緑、黄、赤色の3つのLEDを備えた信号機型モジュール</p>
+<p>使用方法: Obniz sdk: obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {green, yellow, red [, gnd]})</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>name</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>type</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>required</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>default</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>description</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>green</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>緑色LED(G pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>yellow</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>黄色LED(Y pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>red</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>赤色LED(R pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>gnd</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>GND端子(GND pin of Keyestudio)</p>
+</td></tr>
+</table>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="サーボモーター" duration="10">
+        <p>製作物</p>
+<ul>
+<li>サーボモーターのブラウザから操作するアプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>サーボモータ</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p>下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#34;utf-8&#34;&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+      &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34;&gt;
+    &lt;script src=&#34;https://obniz.com/js/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+      &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id=&#34;obniz-debug&#34;&gt;&lt;/div&gt;
+
+    &lt;div class=&#34;wrap px-5 py-4&#34;&gt;
+
+      &lt;h3 class=&#34;title mb-4&#34;&gt;Connect From Your Browser&lt;/h3&gt;
+
+      &lt;h5&gt;サーボモータ&lt;/h5&gt;
+ 
+      &lt;p&gt;
+          角度 &lt;input type=&#34;range&#34; value=&#34;90&#34; min=&#34;0&#34; max=&#34;180&#34; id=&#34;slider&#34;&gt;  &lt;span id=&#34;indicator&#34;&gt;90&lt;/span&gt;度  
+      &lt;/p&gt;
+
+      &lt;div&gt;
+        &lt;center&gt;
+            &lt;button class=&#34;btn btn-primary m-1&#34; id=&#34;blue_on&#34;&gt;回転&lt;/button&gt;
+        &lt;/center&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+
+        obniz.onconnect = async function () {
+
+            var servo = obniz.wired(&#34;ServoMotor&#34;, { gnd: 0, vcc: 1, signal: 2 });
+            servo.angle(90);
+
+            $(&#34;#slider&#34;).on(&#39;change&#39;,function() {
+                var angle = $(&#39;#slider&#39;).val();
+                $(&#39;#indicator&#39;).text(angle);
+            });
+
+            $(&#39;#blue_on&#39;).click(function () {
+              var angle = $(&#39;#indicator&#39;).text();
+              servo.angle(angle);
+            });
+
+        }
+   
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>サーボモーターのマイナス(gnd)、プラス(vcc)、信号(signal)のピンをそれぞれ obniz Boardの0, 1, 2に接続します。</p>
+<h3 is-upgraded><img style="width: 624.00px" src="img/db7819aa877aa3fe.jpeg"></h3>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行すると、サーボモーターが初期位置(90度)に移動し、手動でレンジバーを任意の角度へスライドした後に回転ボタンを押すと、サーボモータがその角度に回転することが確認できます。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/af6415216dd47d74.png"></p>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded>基礎知識</h3>
+<p>&lt;JQueryに関して&gt;</p>
+<aside class="special"><p><strong>JQuery</strong>: JavaScriptでできることを、より簡単な記法で実現できように設計されたJavaScriptライブラリ</p>
+</aside>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>8行目</p>
+<pre><code>&lt;script src=&#34;https://obniz.com/js/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;</code></pre>
+<p>JqueryをCDNから読み込むための一行です。</p>
+<p>CDNとは、Contents Delivery Network の略で、サーバー上に公開されたプログラムをユーザーが自由に使うことができます。</p>
+<p>JQueryは、公式サイトのDownloadページからjQueryのソースコードからファイルをダウンロードして使うこともできますが、CDNから読み込んで利用する方がはるかに手軽です。</p>
+<p>ちなみに、obniz.jsもCDNから利用しています。</p>
+<p>21~23行目</p>
+<pre><code>&lt;p&gt;
+    角度 &lt;input type=&#34;range&#34; value=&#34;90&#34; min=&#34;0&#34; max=&#34;180&#34; id=&#34;slider&#34;&gt;  &lt;span id=&#34;indicator&#34;&gt;90&lt;/span&gt;度  
+&lt;/p&gt;</code></pre>
+<p>&lt;input type=&#34;range&#34;&gt;を指定することで、レンジスライダーを呼び出すことができます。</p>
+<p>このレンジスライダーの最小値を0, 最大値を180、初期値を90として設定しています。</p>
+<p>また、spanタグを呼び出しているのは、画面に出力する数字の部分にidを割り振るためで、今回はindicatorというidを割り振っています。</p>
+<aside class="special"><p><strong>span</strong>: spanタグは、単体では特に意味を持たないタグですが、&lt;span&gt;～&lt;/span&gt;で囲った部分をインライン要素としてグループ化することができるタグです。グループ化することで、指定した範囲にスタイルシートを適用したりすることができます。</p>
+<p>今回は、角度にidを付与するために使用しています。</p>
+</aside>
+<p>38行目</p>
+<pre><code>var servo = obniz.wired(&#34;ServoMotor&#34;, { gnd: 0, vcc: 1, signal: 2 });</code></pre>
+<p>サーボモータのgndピン、vccピン、signalピンをそれぞれobniz Boardの0, 1, 2番に差し込む設定を表しています。</p>
+<p>41行目~44行目</p>
+<pre><code>$(&#34;#slider&#34;).on(&#39;change&#39;,function() {
+    var angle = $(&#39;#slider&#39;).val();
+    $(&#39;#indicator&#39;).text(angle);
+});</code></pre>
+<p>idがsliderの要素の値が変わったら、idがsliderの要素の値を取得して、idがindicatorの要素内のテキストを取得した値に上書きするという処理です。</p>
+<p>ここで、idがsliderの要素とは、レンジスライダーを表し、idがindicatorの要素は、角度の数字を表します。</p>
+<p><strong>[idがsliderの要素]</strong></p>
+<p>&lt;input type=&#34;range&#34; value=&#34;90&#34; min=&#34;0&#34; max=&#34;180&#34; <strong>id=&#34;slider&#34;</strong>&gt;...&lt;/input&gt;</p>
+<p><strong>[idがindicatorの要素]</strong></p>
+<p>&lt;span <strong>id=&#34;indicator&#34;</strong>&gt;90&lt;/span&gt;</p>
+<p>&lt;JQueryのon&gt;</p>
+<aside class="warning"><p><strong>JQueryのchangeイベント処理</strong></p>
+<p>以下のフォーマットで記述し、セレクタに変更が行われた時に関数が実行される。</p>
+<p>$(セレクタ).on(&#39;change&#39;,function() {</p>
+<p>    // セレクタに変更が加わったときに行いたい処理</p>
+<p>}</p>
+<p>なお、セレクタとは、CSSにおけるスタイルを適用する箇所のことで、htmlタグの場合は不要だが、クラスやidで指定する場合、ドットやドルマークが必要になる。</p>
+<p>$(.class)</p>
+<p>$(#id)</p>
+<p>$(tag)</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ボタン" duration="10">
+        <p>製作物</p>
+<ul>
+<li>ボタンの押下ステータス表示</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>Keyestudio_Button</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p><a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a> からオンラインのHTMLエディタにいき、obniz idを入力します。下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;
+ &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+ &lt;script src=&#34;https://obniz.com/js/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+ &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;div id=&#34;press&#34;&gt;
+    ボタンが押された？
+  &lt;/div&gt;
+
+ &lt;script&gt;
+  var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+  obniz.onconnect = async function () {
+   var button = obniz.wired(&#34;Keyestudio_Button&#34;, {signal:0, vcc:1, gnd:2});
+   button.onchange = function(pressed){
+    console.log(&#34;pressed &#34; + pressed)
+    if(pressed == false){
+      $(&#34;#press&#34;).text(&#34;押された！&#34;);
+      colors=new Array(10);
+      colors[0]=&#34;yellow&#34;;
+      colors[1]=&#34;red&#34;;
+      colors[2]=&#34;blue&#34;;
+      colors[3]=&#34;green&#34;;
+      colors[4]=&#34;lime&#34;;
+      colors[5]=&#34;brown&#34;;
+      colors[6]=&#34;gray&#34;;
+      colors[7]=&#34;orange&#34;;
+      colors[8]=&#34;purple&#34;;
+      colors[9]=&#34;fuchsia&#34;;
+      index=Math.floor(10*Math.random());
+      document.bgColor=colors[index];
+    }else{
+      $(&#34;#press&#34;).text(&#34;押されてない...&#34;);
+      document.bgColor=&#34;white&#34;;
+    }
+   };
+
+  };
+ &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>ボタンのsignal, vcc, gndのピンをそれぞれobniz Boardのピン番号0, 1, 2に接続する。</p>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行してみてください。ボタンを押すと、ブラウザの背景色が変化することを確認できると思います。ボタンを押した時は、次の色のどれかがランダムで背景色として適用されます。</p>
+<ul>
+<li>黄色</li>
+<li>赤</li>
+<li>青</li>
+<li>ライム</li>
+<li>茶</li>
+<li>灰色</li>
+<li>オレンジ</li>
+<li>紫</li>
+<li>赤紫</li>
+</ul>
+<p>[ボタンを押していない時]</p>
+<p class="image-container"><img style="width: 624.00px" src="img/c1d2c71badaa8081.png"></p>
+<p>[ボタンを押した時]</p>
+<p class="image-container"><img style="width: 624.00px" src="img/898654a8adc42544.png"></p>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>18行目: </p>
+<pre><code>var button = obniz.wired(&#34;Keyestudio_Button&#34;, {signal:0, vcc:1, gnd:2});</code></pre>
+<p>Keyestudio_Buttonのsignal, vcc, gndのピンをそれぞれobniz Boardのピン番号0, 1, 2に差し込む設定を表しています。</p>
+<aside class="special"><p><strong>Keyestudio_Button</strong>: Keyestudio社製ボタンモジュール。押されたかどうかを検知。</p>
+<p>使用方法: Obniz sdk: obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {green, yellow, red [, gnd]})</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>name</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>type</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>required</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>default</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>description</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>signal</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>signal ボタンの状態を示す端子(s pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>vcc</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>VCC端子(+ pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>gnd</p>
+</td><td colspan="1" rowspan="1"><p>数値 (obniz boardのio)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>GND端子(- pin of Keyestudio)</p>
+</td></tr>
+</table>
+</aside>
+<p>19~40行目:</p>
+<pre><code>button.onchange = function(pressed){
+...
+}</code></pre>
+<p>ボタンが押された時、離された時にcallback関数を呼び出します。</p>
+<aside class="special"><p><strong>コールバック関数</strong>: コンピュータプログラム中で、ある関数などを呼び出す際に引数などとして引き渡される別の関数のこと。 呼び出し側の用意した関数などを、呼び出し先のコードが「呼び出し返す」（callback）ように登録する。 </p>
+</aside>
+<p>22行目:</p>
+<pre><code>$(&#34;#press&#34;).text(&#34;押された！&#34;);</code></pre>
+<p>JQueryを使用した書き方で、idがpressの要素が持つテキストノードを上書きします</p>
+<p>34行目:</p>
+<pre><code>index=Math.floor(10*Math.random());</code></pre>
+<p>0,1,3,4,5,6,7,8,9のいずれかを変数indexxに代入する</p>
+<aside class="special"><p><strong>Math</strong>: 数学的な定数と関数を提供するプロパティとメソッドを持つ、JavaScriptの組み込みのオブジェクト </p>
+</aside>
+<p>Math.foor(引数)</p>
+<ul>
+<li>指定された引数以下の最大の整数を表す数値です</li>
+</ul>
+<p>Math.random()</p>
+<ul>
+<li>0 以上 1 未満 (0 は含むが、 1 は含まない) の範囲で浮動小数点の擬似乱数を返します。</li>
+<li>例 0.0038592681998008693、0.5704015563680835、 0.924035019236241など</li>
+</ul>
+<p>38行目:</p>
+<pre><code>document.bgColor=&#34;white&#34;;</code></pre>
+<p>[書き方 document.bgColor=&#34;16進数、または色名&#34;]</p>
+<p>Javascriptの記述で、ページの背景色を参照または設定します。このプロパティは、ページの表示後でも背景色の変更が可能です。</p>
+<aside class="warning"><p>大文字と小文字を厳格に区別しますので、記述の際には注意してください。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="距離センサー" duration="10">
+        <p>製作物</p>
+<ul>
+<li>距離計測結果に応じたLED信号灯火アプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>LED信号 (Keyestudio_TrafficLight)</li>
+<li>超音波距離センサモジュール (HC-SR04)</li>
+</ul>
+<p>超音波距離センサモジュール (HC-SR04)は下記の端子を持っています</p>
+<p>Vcc – 電源入力</p>
+<p>Trig – トリガー 超音波出力用の信号を送信</p>
+<p>Echo – エコー 超音波入力用の信号を受信</p>
+<p>GND – グランド</p>
+<p class="image-container"><img style="width: 624.00px" src="img/9caa7638de591255.png"></p>
+<h2 is-upgraded>1. プログラム</h2>
+<p><a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a> からオンラインのHTMLエディタにいき、obniz idを入力します。下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;
+ &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+ &lt;script src=&#34;https://obniz.com/js/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+ &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+ &lt;script&gt;
+  var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+    obniz.onconnect = async function () {
+
+        var hcsr04 = obniz.wired(&#34;HC-SR04&#34;, {gnd:0, echo:1, trigger:2, vcc:3});
+        var light = obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {gnd:4, green:5, yellow:6, red:7});
+
+    obniz.onloop = async function(){
+      let distance = 0;
+      let count = 0;
+      for (let i=0; i&lt;3; i++) {
+        const val = await hcsr04.measureWait();
+        if (val) {
+          count++;
+          distance += val;
+        }
+      }
+      if (count &gt; 1) {
+        distance /= count;
+      }
+      console.log(distance);
+      if (distance &lt; 50){
+        light.single(&#34;red&#34;);
+      } else if (distance &lt;300) {
+        light.single(&#34;yellow&#34;);
+      } else {
+        light.single(&#34;green&#34;);
+      }
+    }
+  };
+ &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>距離センサのVcc, Trig, Echo, Gndのピンがobniz Boardの0, 1, 2, 3と繋がるように接続します。</p>
+<p>また、LED信号のGND, G, Y, Rのピンがobniz Boardの4, 5, 6, 7と繋がるように接続します。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/7b4540800055d4f2.jpeg"></p>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行すると、距離によって50mm以内→赤，50mm以上で300mm以内→黄色，300mm以上→緑というようにLED信号が光ります</p>
+<p class="image-container"><img style="width: 320.00px" src="img/e62070373a20760a.gif"></p>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>20~26行目:</p>
+<p>距離センサーで、最大3回測定を行い、その平均値を測定値としてdistanceという変数に格納する処理。</p>
+<pre><code>for (let i=0; i&lt;3; i++) {
+    const val = await hcsr04.measureWait();
+    if (val) {
+        count++;
+        distance += val;
+    }
+}</code></pre>
+<aside class="special"><p><strong>[await] measureWait()</strong>: measure()と同様に距離を計測する関数ですが、こちらはpromiseを返す関数です。</p>
+<p>(promiseは、非同期処理の最終的な完了処理 (もしくは失敗) およびその結果の値を表現したオブジェクト)</p>
+<p><strong>await</strong>: async function(非同期関数) の実行を一時停止し、Promise の解決または拒否を待ちます。解決した後に async function の実行を再開します。再開するときに await 式は解決された Promise にラップされた値を返します。</p>
+</aside>
+<p>31~37行目:</p>
+<p>距離センサーの計測結果の数値が50mm未満の場合はLED信号の赤を点灯、300mm未満の時は黄色を点灯、300mm以上離れているときは緑を点灯する。</p>
+<pre><code>if (distance &lt; 50){
+    light.single(&#34;red&#34;);
+} else if (distance &lt;300) {
+    light.single(&#34;yellow&#34;);
+} else {
+    light.single(&#34;green&#34;);
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="温度センサー" duration="10">
+        <p>製作物</p>
+<ul>
+<li>温度センサーの値をリアルタイムでグラフに表示するアプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>温度センサー（Keyestudio_TemperatureSensor）</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p><a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a> からオンラインのHTMLエディタにいき、obniz idを入力します。下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;
+    &lt;!-- Chart.jsを導入 --&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js&#34;&gt;&lt;/script&gt;
+    &lt;!-- obniz.jsを導入 --&gt;
+    &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34;&gt;&lt;/script&gt;
+    &lt;canvas id=&#34;myChart&#34;&gt;&lt;/canvas&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script&gt;
+        var ctx = document.getElementById(&#34;myChart&#34;);
+        var tempLists = []; //温度の保持用
+        var labelLists = []; //ラベル(横軸)の保持用
+
+        var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);    //OBNIZ ID here
+        obniz.onconnect = async function () {    // when obniz connected...
+
+            var chart = new Chart(ctx, {    // Chartの設定
+                type: &#39;line&#39;,    //折れ線グラフにする
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: &#39;現在の温度&#39;,    //ラベルを設定
+                            data: []
+                        }
+                    ]
+                },
+                options: {    //Chartのオプションを設定
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                suggestedMax: 30,    // y軸の最低値
+                                suggestedMin: 20,    // y軸の最高値
+                                stepSize: 1,            // 1℃ごとに軸に表示
+                                callback: function (value, index, values) {
+                                    return value + &#39;℃&#39;    //    数字の後に&#34;℃&#34;の表示を付ける
+                                }
+                            }
+                        }]
+                    },
+                }
+            });
+            
+            // use Keyestudio_TemperatureSensor library
+            var tempsens = obniz.wired(&#34;Keyestudio_TemperatureSensor&#34;, { signal: 0, vcc: 1, gnd: 2 });
+            var count = 0;    // count temperature change
+            
+            obniz.repeat(async function () { 
+              var temp = await tempsens.getWait();
+              count++;
+              tempLists.push(temp.toFixed(1));    //温度を小数点1桁に統一して格納
+              labelLists.push(count);        //ラベルを格納
+              chart.data.labels = labelLists;    //ラベルデータを反映させる
+              chart.data.datasets[0].data = tempLists; //温度データを反映させる
+              chart.update();    //グラフを再描画
+              console.log(temp.toFixed(1));
+            }, 1000);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>人感センサーの信号(signal)、プラス(vcc)、マイナス(gnd)のピンをそれぞれ obniz Boardの0, 1, 2に接続します。</p>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行すると、ブラウザにグラフが表示され、１秒おきに温度データがプロットされていきます。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/c3d606825920d7c9.png"></p>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>5行目: </p>
+<pre><code>&lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js&#34;&gt;&lt;/script&gt;</code></pre>
+<p>chart.jsをCDNから読み込むための一行です。</p>
+<p>CDNとは、Contents Delivery Network の略で、サーバー上に公開されたプログラムをユーザーが自由に使うことができます。</p>
+<p>8〜45行目:</p>
+<pre><code>canvas id=&#34;myChart&#34;&gt;
+...
+}</code></pre>
+<p>chart.jsの詳細な説明は今回は割愛させていただきます。</p>
+<p>51行目:</p>
+<pre><code>obniz.repeat(async function () {
+...
+}, 1000);</code></pre>
+<p>obniz.repeat()は繰り返し処理を行う関数であり、repeatに渡した関数は繰り返し実行されます。その上obnizとの接続が切れたら自動的に止まります。第2引数が、繰り返しの間隔でして、デフォルトは100ms。今回は1000msに設定。</p>
+<aside class="warning"><p>JavaScriptの言語には同じ処理を繰り返すのに便利なsetInterval関数がありますが、setIntervalですと、obnizとの接続が切れてもintervalが止まらない問題があります。</p>
+</aside>
+<p>52行目:</p>
+<pre><code>var temp = await tempsens.getWait();</code></pre>
+<aside class="special"><p>温度センサ（Keyestudio_TemperatureSensor）にはobniz社によってonchangeと[await]getWaitの関数が用意されています。</p>
+<p>onchange：温度センサの値に変化があった場合にcallback関数を呼び出します。間隔の指定はできません。温度は摂氏で返されます。</p>
+<p>[await]getWait：温度センサの値を一度だけ取得します。温度は摂氏で返されます。</p>
+</aside>
+<aside class="special"><p><strong>ポイント</strong></p>
+<p>obnizの関数は、onconnectや、oncloseなど、obnizクラウドとの接続が開始(または終了)したタイミングで、インターネットで繋がったオブジェクトを操作するのが基本になります。上記のonconnectやoncloseは非同期関数になっており、非同期関数のブロックの中で上から順番にプログラムを実行したい場合、1つ1つの関数にawaitをつけて、実行結果が返るまで待機する必要があります。</p>
+<p>もし、sleepを使いたい場合はawait obniz.wait(5000);となります。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="人感センサー" duration="10">
+        <p>製作物</p>
+<ul>
+<li>人感センサーでLED信号を光らせるアプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>人感センサー（Keyestudio_PIR）</li>
+<li>LED信号（Keyestudio_TrafficLight）</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p>下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34; /&gt;
+  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34; /&gt;
+  &lt;script src=&#34;https://code.jquery.com/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+  &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34; crossorigin=&#34;anonymous&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div id=&#34;obniz-debug&#34;&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    console.log(document.bgColor);
+    var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+
+  obniz.onconnect = async function () {
+    var sensor = obniz.wired(&#34;Keyestudio_PIR&#34;, {signal:0, vcc:1, gnd:2});
+    var light = obniz.wired(&#34;Keyestudio_TrafficLight&#34;, {gnd:8, green:9, yellow:10, red:11});
+
+    sensor.onchange = function(val){
+
+      console.log(val);
+
+      if(val == true){
+        console.log(&#34;誰かいた！&#34;);
+        light.green.off();
+        light.red.on();
+        document.bgColor=&#34;red&#34;;
+      }else{
+        console.log(&#34;誰もいない...&#34;);
+        light.red.off();
+        light.green.on();
+        document.bgColor=&#34;green&#34;;
+      }
+    }  
+  };
+  &lt;/script&gt;
+  
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>人感センサーの信号(signal)、プラス(vcc)、マイナス(gnd)のピンをそれぞれ obniz Boardの0, 1, 2に接続します。</p>
+<p>また、LED信号のGND, G, Y, Rがobniz Boardの8, 9, 10, 11と繋がるように接続します。</p>
+<h3 is-upgraded><img style="width: 469.50px" src="img/6865a21069c8b325.jpeg"></h3>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行すると、人感センサが動きを察知し、LEDを光らせます。時間センサーが動き検出すると、ブラウザとLED信号が赤色に光り確認できます。また、動きを検出できなくなるとブラウザとLED信号が緑色に光り確認できます。</p>
+<p class="image-container"><img style="width: 484.50px" src="img/73b34b02f90ecb0b.png"></p>
+<p class="image-container"><img style="width: 485.50px" src="img/93d16c63e9a7af66.png"></p>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>18行目</p>
+<pre><code>var sensor = obniz.wired(&#34;Keyestudio_PIR&#34;, {signal:0, vcc:1, gnd:2});</code></pre>
+<p>第一引数は、Obniz SDKの中の人感センサーのクラスを呼び出しており、第二引数はObnizのIOへ接続の設定を行っています。</p>
+<aside class="special"><p><strong>Keyestudio_PIR</strong>: Keyestudio社製のモーションセンサ(PIRセンサ)で、周囲の赤外線放射の変化によって人や動物が近くにいるかを検出センサです。</p>
+<p>入力電圧：DC 3.3V〜18V</p>
+<p>動作電流：15uA</p>
+<p>作動温度：-20〜85℃</p>
+<p>出力電圧：高3V、低0V</p>
+<p>出力遅延時間（高レベル）：約2.3〜3秒</p>
+<p>検出角度：100°</p>
+<p>検出距離：3〜4メートル</p>
+<p>出力インジケータLED（HIGHレベルの場合はオンになります）</p>
+<p>ピン制限電流：100mA</p>
+<p>使用方法: obniz.wired(&#34;Keyestudio_PIR&#34;, {signal:0, vcc:1, gnd:2});</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>name</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>type</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>required</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>default</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>description</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>signal</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>signal センサの値を示す端子(s pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>vcc</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>VCC端子(+ pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>gnd</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>GND端子(- pin of Keyestudio)</p>
+</td></tr>
+</table>
+</aside>
+<p>25~35行目</p>
+<pre><code>     if(val == true){ 
+        console.log(&#34;誰かいた！&#34;);
+        light.green.off();
+        light.red.on();
+        document.bgColor=&#34;red&#34;;
+      }else{
+        console.log(&#34;誰もいない...&#34;);
+        light.red.off();
+        light.green.on();
+        document.bgColor=&#34;green&#34;;
+      }</code></pre>
+<p>まず、人感センサーがtrue(動きを検知)を返した時にLED信号の緑色をOFFにし、赤色をONにする処理を行っています。document.bgColorではバックグラウンドカラーを赤色に変更しています。</p>
+<p>それ以外(false)を返したときは、LED信号の赤色をOFFにし、緑色をONにする処理を行っています。document.bgColorではバックグラウンドカラーを緑色に変更しています。</p>
+<p>29行目</p>
+<pre><code>document.bgColor=&#34;red&#34;;</code></pre>
+<aside class="warning"><p><strong>javascriptでのバックグラウンドカラー制御</strong></p>
+<p>document.bgColorはbootstrapと競合するため、javascriptでバックグラウンドカラーを変更したい場合は、&lt;head&gt;&lt;/head&gt;内にある以下を削除してください。</p>
+<p>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34;&gt;</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="LEDマトリクス" duration="1">
+        <p>ブザーの只今準備中です。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ブザー" duration="10">
+        <p>製作物</p>
+<ul>
+<li>ブザーのブラウザから操作するアプリケーション</li>
+</ul>
+<p>使用部品</p>
+<ul>
+<li>obniz Board</li>
+<li>ブザー（Keyestudio_Buzzer）</li>
+</ul>
+<h2 is-upgraded>1. プログラム</h2>
+<p><a href="http://obniz.com/ja/console/program" target="_blank">http://obniz.com/ja/console/program</a> からオンラインのHTMLエディタにいき、obniz idを入力します。下記のプログラムを丸ごとコピーし、自分のプログラム画面に貼り付けます。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#34;utf-8&#34; /&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34; /&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34; /&gt;
+    &lt;script src=&#34;https://code.jquery.com/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://unpkg.com/obniz@3.x/obniz.js&#34; crossorigin=&#34;anonymous&#34; &gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&#34;obniz-debug&#34;&gt;&lt;/div&gt;
+
+      &lt;div class=&#34;wrap px-5 py-4&#34;&gt;
+
+        &lt;h3 class=&#34;title mb-4&#34;&gt;Connect From Your Browser&lt;/h3&gt;
+
+        &lt;h5&gt;Buzzer&lt;/h5&gt;
+
+        &lt;div class=&#34;btnBox d-flex mb-4&#34;&gt;
+
+          &lt;div class=&#34;do_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;do_on_1&#34;&gt;ド&lt;/button&gt;
+            &lt;button class=&#34;btn btn-danger m-1&#34; id=&#34;stop&#34;&gt;STOP&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;re_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;re_on&#34;&gt;レ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;mi_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;mi_on&#34;&gt;ミ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;fa_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;fa_on&#34;&gt;ファ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;so_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;so_on&#34;&gt;ソ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;ra_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;ra_on&#34;&gt;ラ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;si_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;si_on&#34;&gt;シ&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;do_btn d-flex flex-column&#34;&gt;
+            &lt;button class=&#34;btn btn-success m-1&#34; id=&#34;do_on_2&#34;&gt;ド&lt;/button&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+    &lt;script&gt;
+      var obniz = new Obniz(&#34;OBNIZ_ID_HERE&#34;);
+
+      obniz.onconnect = async function () {
+
+        var speaker = obniz.wired(&#34;Keyestudio_Buzzer&#34;, {signal:0, vcc:1, gnd:2});
+        
+        $(&#39;#do_on_1&#39;).click(function () {
+          speaker.play(261.626);
+        });
+
+        $(&#39;#re_on&#39;).click(function () {
+          speaker.play(293.665);
+        });
+
+        $(&#39;#mi_on&#39;).click(function () {
+          speaker.play(329.628);
+        });
+
+        $(&#39;#fa_on&#39;).click(function () {
+          speaker.play(349.228);
+        });
+
+        $(&#39;#so_on&#39;).click(function () {
+          speaker.play(391.995);
+        });
+
+        $(&#39;#ra_on&#39;).click(function () {
+          speaker.play(440);
+        });
+
+        $(&#39;#si_on&#39;).click(function () {
+          speaker.play(493.883);
+        });
+        
+        $(&#39;#do_on_2&#39;).click(function () {
+          speaker.play(523.251);
+        });
+
+        $(&#39;#stop&#39;).click(function () {
+          speaker.stop();
+        });
+
+      }
+
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded>2. 組み立て</h2>
+<p>ブザーのピンに表記されている、S(signal), V(vcc), G(gnd)のピンがそれぞれobniz Boardの0, 1, 2と繋がるように接続します。</p>
+<h3 is-upgraded><img style="width: 461.50px" src="img/dbb1e1a60b9e5661.jpeg"></h3>
+<h2 is-upgraded>3. 実行</h2>
+<p>実際にプログラムを実行すると、緑色の「ド」「レ」「ミ」「ファ」「ソ」「ラ」「シ」「ド」と、赤色の「STOP」のボタンが表示されます。緑色のボタンを押すことでその音階の音が鳴ることが確認でき、赤色の「STOP」ボタンを押すことで止まることが確認できます。</p>
+<h3 is-upgraded><img style="width: 624.00px" src="img/529cf883a7efe026.png"></h3>
+<h2 is-upgraded>4. 解説</h2>
+<h3 is-upgraded><strong>ソースコード解説</strong></h3>
+<p>つまずきそうなポイントに絞って解説していきます。</p>
+<p>63行目: </p>
+<pre><code>var speaker = obniz.wired(&#34;Keyestudio_Buzzer&#34;, {signal:0, vcc:1, gnd:2});</code></pre>
+<p>第一引数は、Obniz SDKの中のブザーのクラスを呼び出しており、第二引数はObnizのIOへ接続の設定を行っています。</p>
+<aside class="special"><p><strong>Keyestudio_Buzzer</strong>: Keyestudio社製ブザーモジュールで、動作電圧は3.3Vから5V。周波数を変更することで、ブザー音を変更することができます。</p>
+<p>使用方法: Obniz sdk: obniz.wired(&#34;Keyestudio_Buzzer&#34;, {signal:0, vcc:1, gnd:2})</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>name</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>type</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>required</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>default</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>description</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>signal</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>必須</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>signal 出力端子(s pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>vcc</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>VCC端子(+ pin of Keyestudio)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>gnd</p>
+</td><td colspan="1" rowspan="1"><p>number(obniz Board io)</p>
+</td><td colspan="1" rowspan="1"><p>任意</p>
+</td><td colspan="1" rowspan="1"><p>なし</p>
+</td><td colspan="1" rowspan="1"><p>GND端子(- pin of Keyestudio)</p>
+</td></tr>
+</table>
+</aside>
+<p>66,98行目</p>
+<pre><code>speaker.play(260.7);</code></pre>
+<p>260.7Hzの音(ド)を流す。</p>
+<pre><code>speaker.stop();</code></pre>
+<p>音を止める。</p>
+<p>66〜94行目</p>
+<p>各ボタンのブザー音の周波数について補足。</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>音名</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>周波数</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ド</p>
+</td><td colspan="1" rowspan="1"><p>261.626Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>レ</p>
+</td><td colspan="1" rowspan="1"><p>293.665Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ミ</p>
+</td><td colspan="1" rowspan="1"><p>329.628Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ファ</p>
+</td><td colspan="1" rowspan="1"><p>349.228Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ソ</p>
+</td><td colspan="1" rowspan="1"><p>391.995Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ラ</p>
+</td><td colspan="1" rowspan="1"><p>440Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>シ</p>
+</td><td colspan="1" rowspan="1"><p>493.883Hz</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ド</p>
+</td><td colspan="1" rowspan="1"><p>523.251Hz</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="いかがでしたか？" duration="1">
+        <p>Obnizのスターターキットを実際に動かしてみて、制御を行うのが意外に簡単に感じたのではないでしょうか？</p>
+<p>IoTは様々な領域の知識が必要となりますが、IoT開発を楽しむことがIoT開発に慣れるための第一歩です。</p>
+<p>このサイトでは、とっつきやすいように様々なアプローチで部品や制御モデルを用いたIoT開発コンテンツをわかりやすく紹介していきます。</p>
+<p>また、お困り事や、相談したい事などありましたら、大小問わずお気軽にお問い合わせください。サポートさせて頂きます。</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
